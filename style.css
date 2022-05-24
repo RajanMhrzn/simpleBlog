@@ -1,0 +1,14 @@
+*{
+    margin-left: 0;
+    padding: 0;
+}
+body{
+    margin-left: 100px;
+    padding: 0;
+
+}
+
+.blogCard{
+    border: solid 1px;
+    width: 50%;
+}

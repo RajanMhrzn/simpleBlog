@@ -1,61 +1,85 @@
-var tasklist= [
-    {
-        id:1,
-        blogTitle:'Blog1 ',
-        blogPost:'This is my first blog '
-    },
-    {
-        id:2,
-        blogTitle:'Blog2 ',
-        blogPost:'This is my second blog'
-    }
-
+var tasklist = [
+  {
+    id: 1,
+    blogTitle: "Blog 1 ",
+    blogPost: "This is my first blog ",
+    blogComment: "Commented 1",
+  },
+  {
+    id: 2,
+    blogTitle: "Food Blog  ",
+    blogPost: "This is my second blog written on the topic of foodiee...",
+    blogComment: "Commented 2",
+  },
+  {
+    id: 3,
+    blogTitle: "Travel Blog ",
+    blogPost: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    blogComment: "Commented 3",
+  },
 ];
 
- ShowBlogs = ()=>{
-    document.querySelector('#tasklist').innerHTML = '';
-    tasklist.forEach((val,index)=>{
-        document.querySelector('#tasklist').innerHTML += `<br>
-        <h2>${val.blogTitle}</h2><br>
-        <h4>${val.blogPost}</h4>
-        <button onClick="editData(${val.id}">Edit Post</button>
-        <button onClick="deleteTask(${val.id})">Delete Post</button>
-        <button onClick="addComment(${val.id}">Comment</button><br><br>
+
+// ----------Show Blogs-----------
+
+ShowBlogs = () => {
+  document.querySelector("#tasklist").innerHTML = "";
+  tasklist.forEach((val, index) => {
+    document.querySelector("#tasklist").innerHTML += `<br><br>
+        <div class="blogCard">
+            <h2>${val.blogTitle}</h2><br>
+            <h4>${val.blogPost}</h4>
+            <button onClick="deleteTask(${val.id})">Delete Post</button>
+            <button onClick="commentPost(${val.id})">Comment</button><br>
+            <h6>${val.blogComment}</h6>
+        </div>
         `;
-    });
-}
+  });
+};
 ShowBlogs();
 
-const addBlogs=()=>{
-    const [blogTitle, blogPost]=[
-        document.querySelector('#addTitle').value,
-        document.querySelector('#addPost').value,
-    ];
-    const id = tasklist[tasklist.length -1].id+1;
-    tasklist.push({
-        id,blogTitle,blogPost
+
+
+// ----------Add Blogs-----------
+
+const addBlogs = () => {
+  const [blogTitle, blogPost] = [
+    document.querySelector("#addTitle").value,
+    document.querySelector("#addPost").value,
+    // document.querySelector("#addComment").value,
+  ];
+  const id = tasklist[tasklist.length - 1].id + 1;
+  tasklist.push({ id,blogTitle, blogPost});
+  ShowBlogs();
+};
+
+
+// ----------Delete Blogs-----------
+
+const deleteTask = (id) => {
+  tasklist = tasklist.filter((val) => val.id !== id);
+  ShowBlogs();
+};
+
+// ----------Comment Blogs-----------
+
+const commentPost=()=>{
+    // document.querySelector("#tasklist").innerHTML = "";
+    tasklist.forEach((val, index) => {
+    document.querySelector("#tasklist").innerHTML = `<br>
+    <input type="textarea" id="addComment"/>
+    <button onclick="addCommentPost(${val.id})">Save</button>
+    `;
     });
-    ShowBlogs();
 }
 
-const deleteTask= id =>{
-    tasklist = tasklist.filter(val => val.id !== id);
-    ShowBlogs();
+const addCommentPost = (i)=>{
+    const [blogTitle, blogPost, blogComment]= [
+        document.querySelector("#addTitle").value,
+        document.querySelector("#addPost").value,
+        document.querySelector("#addComment").value,
+      ];
+      const id = tasklist[tasklist.length - 1].id + 1;
+      tasklist.push({ id,blogTitle, blogPost,blogComment});
+      ShowBlogs();
 }
-
-const editData = (i)=>{
-    document.querySelector('#addTitle').value = tasklist[i].blog;
-    document.querySelector('#addPost').value = tasklist[i].blog;
-}
-
-const saveEditData=()=>{
-    const arrIndex = tasklist.findIndex(v=>v.id==id);
-    const title = document.querySelector('#addTitle').value;
-    const post = document.querySelector('#addPost').value;
-    tasklist[arrIndex].title = title;
-    tasklist[arrIndex].post = post;
-    ShowBlogs();
-}
-// const addComment = (i)=>{
-//     document.querySelector('#addPost').value = tasklist[i].blog;
-// }
