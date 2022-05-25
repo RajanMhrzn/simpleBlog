@@ -31,7 +31,7 @@ ShowBlogs = () => {
             <h4>${val.blogPost}</h4>
             <button onClick="deleteTask(${val.id})">Delete Post</button>
             <button onClick="commentPost(${val.id})">Comment</button><br>
-            <h6>${val.blogComment}</h6>
+            <h6>${val.blogComment === undefined ? 'no comments': val.blogComment}</h6>
         </div>
         `;
   });
@@ -49,7 +49,7 @@ const addBlogs = () => {
     // document.querySelector("#addComment").value,
   ];
   const id = tasklist[tasklist.length - 1].id + 1;
-  tasklist.push({ id,blogTitle, blogPost});
+  tasklist.push({ id:id ,blogTitle: blogTitle, blogPost: blogPost});
   ShowBlogs();
 };
 
